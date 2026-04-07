@@ -6,8 +6,8 @@ import logger from '../utils/logger.js';
 
 dotenv.config();
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-const chatModel = genAI.getGenerativeModel({ model: 'gemini-3.1-pro' }); // Ou gemini-2.5-pro, caso a versão nova não esteja na sua SDK
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || 'dummy_prevent_crash');
+const chatModel = genAI.getGenerativeModel({ model: 'gemini-1.5-pro' });
 
 export async function askQuestion(question) {
   try {

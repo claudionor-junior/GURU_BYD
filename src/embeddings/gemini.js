@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import logger from '../utils/logger.js';
 dotenv.config();
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || 'dummy_prevent_crash');
 
 // Use text-embedding-004
 const embeddingModel = genAI.getGenerativeModel({ model: 'text-embedding-004' });
