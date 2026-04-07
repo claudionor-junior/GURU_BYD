@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static('public')); // Servindo arquivos front-end do chat
 
-app.post('/chat', async (req, res) => {
+app.post('/api/chat', async (req, res) => {
   const { question } = req.body;
   if (!question) {
     return res.status(400).json({ error: 'A propriedade "question" é obrigatória no body JSON.' });
