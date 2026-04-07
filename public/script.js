@@ -87,16 +87,23 @@ chatForm.addEventListener('submit', async (e) => {
       body: JSON.stringify({ question })
     });
 
+    if (!response.ok) {
+      const errorText = await response.text();
+      hideTyping();
+      appendMessage('ai', `❌ Erro do Servidor (${response.status}): ${errorText.substring(0, 100)}`);
+      return;
+    }
+
     const data = await response.json();
     hideTyping();
 
     if (data.error) {
-      appendMessage('ai', '❌ Ocorreu um erro: ' + data.error);
+      appendMessage('ai', '❌ Ocorreu um erro: ' + data.error + (data.details ? ' | Detalhes: ' + data.details : ''));
     } else {
       appendMessage('ai', data.answer, data.sources);
     }
   } catch (err) {
     hideTyping();
-    appendMessage('ai', '❌ Falha de comunicação com o servidor.');
+    appendMessage('ai', `❌ Falha de comunicação: ${err.message}`);
   }
 });
